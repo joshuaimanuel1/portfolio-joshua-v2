@@ -1,4 +1,3 @@
-// frontend/src/components/Hero.tsx
 "use client";
 
 import React, { useEffect, useRef, useState } from "react";
@@ -195,32 +194,11 @@ const LeoConstellation = () => {
 
 const GlobalGreeting = () => {
   const greetings = [
-    "Halo",
-    "Bonjour",
-    "Hola",
-    "こんにちは",
-    "안녕하세요",
-    "Hello",
-    "Ciao",
-    "Hallo",
-    "你好",
-    "Olá",
-    "مرحباً",
-    "नमस्ते",
-    "Привет",
-    "Merhaba",
-    "สวัสดี",
-    "Xin chào",
-    "Hallo",
-    "שלום",
-    "Hej",
-    "Cześć",
-    "Привіт",
-    "হ্যালো",
-    "سلام",
-    "Hai",
-    "Kamusta",
-    "Habari",
+    "Halo", "Bonjour", "Hola", "こんにちは", "안녕하세요",
+    "Hello", "Ciao", "Hallo", "你好", "Olá", "مرحباً",
+    "नमस्ते", "Привет", "Merhaba", "สวัสดี", "Xin chào",
+    "Hallo", "שלום", "Hej", "Cześć", "Привіт", "হ্যালো",
+    "سلام", "Hai", "Kamusta", "Habari",
   ];
 
   const [text, setText] = useState("");
@@ -278,7 +256,6 @@ const GlobalGreeting = () => {
 };
 
 export default function Hero({ personalInfo }: { personalInfo: PersonalInfo }) {
-  // STATE UNTUK MELACAK POSISI SCROLL (PARALLAX EFFECT)
   const [offsetY, setOffsetY] = useState(0);
 
   useEffect(() => {
@@ -299,15 +276,13 @@ export default function Hero({ personalInfo }: { personalInfo: PersonalInfo }) {
       id="home"
       className="sticky top-0 z-0 min-h-screen flex items-center justify-center overflow-hidden bg-slate-950 text-white"
     >
-      {/* Background Bintang Tetap Diam (Terasa lebih dalam / 3D) */}
       <StarlightBackground />
 
-      {/* WRAPPER PARALLAX: Konten akan bergeser naik dan memudar perlahan saat di-scroll */}
       <div
         className="absolute inset-0 w-full h-full pointer-events-none flex flex-col justify-center items-center"
         style={{
-          transform: `translateY(-${offsetY * 0.4}px)`, // Kecepatan scroll (0.4 dari kecepatan normal)
-          opacity: Math.max(1 - offsetY / 700, 0), // Memudar perlahan
+          transform: `translateY(-${offsetY * 0.4}px)`,
+          opacity: Math.max(1 - offsetY / 700, 0),
         }}
       >
         <LeoConstellation />
@@ -319,22 +294,22 @@ export default function Hero({ personalInfo }: { personalInfo: PersonalInfo }) {
         </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center pointer-events-auto">
-          <div className="inline-block mb-4 px-4 py-1 rounded-full border border-blue-500/30 bg-blue-950/30 backdrop-blur-sm text-blue-300 text-xs sm:text-sm font-semibold tracking-widest animate-fade-in-up uppercase">
+          <div className="inline-block mb-3 px-4 py-1 rounded-full border border-blue-500/30 bg-blue-950/30 backdrop-blur-sm text-blue-300 text-xs sm:text-sm font-semibold tracking-widest animate-fade-in-up uppercase">
             Welcome to my Portfolio
           </div>
 
-          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-4 animate-fade-in-up delay-100">
+          <h1 className="text-5xl md:text-7xl font-extrabold tracking-tight mb-2 animate-fade-in-up delay-100">
             I'm{" "}
             <span className="bg-gradient-to-r from-blue-300 via-purple-300 to-indigo-300 bg-clip-text text-transparent drop-shadow-[0_0_15px_rgba(167,139,250,0.5)]">
               {personalInfo.name}
             </span>
           </h1>
 
-          <h2 className="text-lg md:text-xl font-medium text-slate-300/90 mb-5 animate-fade-in-up delay-150 tracking-wide">
+          <h2 className="text-lg md:text-xl font-medium text-slate-300/90 mb-2 animate-fade-in-up delay-150 tracking-wide">
             {personalInfo.role}
           </h2>
 
-          <p className="mt-2 mb-8 max-w-2xl mx-auto text-sm md:text-base font-normal text-slate-400 leading-relaxed animate-fade-in-up delay-200">
+          <p className="mt-0 mb-8 max-w-2xl mx-auto text-sm md:text-base font-light text-slate-400 leading-relaxed animate-fade-in-up delay-200">
             {personalInfo.heroDescription}
           </p>
 
@@ -370,7 +345,7 @@ export default function Hero({ personalInfo }: { personalInfo: PersonalInfo }) {
 
       <div
         className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-slate-500 z-10 cursor-pointer pointer-events-auto"
-        style={{ opacity: Math.max(1 - offsetY / 200, 0) }} // Panah hilang lebih cepat saat di scroll
+        style={{ opacity: Math.max(1 - offsetY / 200, 0) }}
         onClick={handleScrollDown}
       >
         <ChevronDown className="w-8 h-8 hover:text-white transition-colors" />
