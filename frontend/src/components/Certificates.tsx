@@ -96,10 +96,12 @@ export default function Certificates({
   const Card = ({ cert, index }: { cert: Certificate; index: number }) => (
     <div
       onClick={() => setSelectedCert(cert)}
-      className={`group relative p-6 bg-slate-900 rounded-xl border border-slate-800 hover:border-purple-500/50 transition-all duration-500 hover:shadow-lg hover:shadow-purple-500/10 cursor-pointer flex flex-col h-full transform ${
-        isVisible ? "opacity-100 translate-y-0" : "opacity-0 translate-y-20"
+      className={`group relative p-6 bg-slate-900 rounded-xl border border-slate-800 hover:border-purple-500/50 cursor-pointer flex flex-col h-full transform will-change-transform transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-2 hover:shadow-lg hover:shadow-purple-500/10 ${
+        isVisible
+          ? "opacity-100 translate-y-0 scale-100 blur-0"
+          : "opacity-0 translate-y-16 scale-95 blur-md"
       }`}
-      style={{ transitionDelay: `${index * 100}ms` }}
+      style={{ transitionDelay: `${index * 150}ms` }}
     >
       <div className="flex justify-between items-start mb-4">
         <div className="w-12 h-12 bg-slate-800 rounded-lg flex items-center justify-center group-hover:bg-slate-700 transition-colors">

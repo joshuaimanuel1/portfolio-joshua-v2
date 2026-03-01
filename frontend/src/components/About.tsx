@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useRef } from "react";
 import {
   ExternalLink,
   Play,
@@ -118,6 +118,27 @@ export default function About({
   personalInfo: PersonalInfo;
 }) {
   const { ref, isVisible } = useScrollReveal(0.2);
+  const bgRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    let ticking = false;
+
+    const handleScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          if (bgRef.current) {
+            const scrollY = window.scrollY;
+            bgRef.current.style.transform = `translate3d(0, ${scrollY * 0.15}px, 0)`;
+          }
+          ticking = false;
+        });
+        ticking = true;
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll, { passive: true });
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, []);
 
   return (
     <section
@@ -125,16 +146,21 @@ export default function About({
       className="py-24 bg-slate-950 relative z-20 border-t border-slate-800/50 shadow-[0_-20px_50px_rgba(0,0,0,0.5)]"
       ref={ref}
     >
-      <div className="absolute top-0 right-0 w-[30rem] h-[30rem] bg-purple-900/10 rounded-full blur-[120px] pointer-events-none"></div>
-      <div className="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none"></div>
+      <div
+        ref={bgRef}
+        className="absolute inset-0 w-full h-full pointer-events-none will-change-transform"
+      >
+        <div className="absolute top-0 right-0 w-[30rem] h-[30rem] bg-purple-900/10 rounded-full blur-[120px]"></div>
+        <div className="absolute bottom-0 left-0 w-[30rem] h-[30rem] bg-blue-900/10 rounded-full blur-[120px]"></div>
+      </div>
 
       <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-3 lg:grid-cols-4 gap-4 auto-rows-[auto]">
           <div
-            className={`md:col-span-1 lg:col-span-1 md:row-span-2 relative rounded-3xl overflow-hidden group border border-slate-800 transition-all duration-700 ease-out shadow-lg ${
+            className={`md:col-span-1 lg:col-span-1 md:row-span-2 relative rounded-3xl overflow-hidden group border border-slate-800 shadow-lg will-change-transform transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
               isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-12"
+                ? "opacity-100 translate-y-0 scale-100 blur-0"
+                : "opacity-0 translate-y-16 scale-95 blur-md"
             }`}
           >
             <img
@@ -161,7 +187,7 @@ export default function About({
                     href={personalInfo.socials.github}
                     target="_blank"
                     rel="noreferrer"
-                    className="hover:text-white-transition-colors"
+                    className="hover:text-white transition-colors"
                   >
                     <Github className="w-5 h-5" />
                   </a>
@@ -187,10 +213,10 @@ export default function About({
           </div>
 
           <div
-            className={`md:col-span-2 lg:col-span-3 bg-slate-900 rounded-3xl p-8 md:p-10 border border-slate-800 flex flex-col justify-center transition-all duration-700 ease-out delay-100 shadow-lg hover:border-slate-700/50 ${
+            className={`md:col-span-2 lg:col-span-3 bg-slate-900 rounded-3xl p-8 md:p-10 border border-slate-800 flex flex-col justify-center shadow-lg hover:border-slate-700/50 will-change-transform transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] delay-150 ${
               isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-12"
+                ? "opacity-100 translate-y-0 scale-100 blur-0"
+                : "opacity-0 translate-y-16 scale-95 blur-md"
             }`}
           >
             <h2 className="text-4xl md:text-5xl font-bold text-white mb-6 tracking-tight flex items-center gap-3">
@@ -208,20 +234,20 @@ export default function About({
           </div>
 
           <div
-            className={`md:col-span-1 lg:col-span-1 transition-all duration-700 ease-out delay-200 ${
+            className={`md:col-span-1 lg:col-span-1 will-change-transform transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] delay-300 ${
               isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-12"
+                ? "opacity-100 translate-y-0 scale-100 blur-0"
+                : "opacity-0 translate-y-16 scale-95 blur-md"
             }`}
           >
             <MusicWidget />
           </div>
 
           <div
-            className={`md:col-span-2 lg:col-span-2 bg-slate-900 rounded-3xl p-8 border border-slate-800 transition-all duration-700 ease-out delay-300 shadow-lg hover:border-slate-700/50 flex flex-col justify-center ${
+            className={`md:col-span-2 lg:col-span-2 bg-slate-900 rounded-3xl p-8 border border-slate-800 shadow-lg hover:border-slate-700/50 flex flex-col justify-center will-change-transform transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] delay-[450ms] ${
               isVisible
-                ? "opacity-100 translate-y-0"
-                : "opacity-0 translate-y-12"
+                ? "opacity-100 translate-y-0 scale-100 blur-0"
+                : "opacity-0 translate-y-16 scale-95 blur-md"
             }`}
           >
             <h3 className="text-xl font-bold text-white mb-6 pl-3">

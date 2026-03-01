@@ -8,42 +8,47 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState("home");
 
+  // OPTIMASI 120FPS: Menggunakan requestAnimationFrame agar scroll spy tidak memberatkan browser
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 30);
+    let ticking = false;
 
-    const handleScrollSpy = () => {
-      const sections = [
-        "home",
-        "about",
-        "skills",
-        "projects",
-        "experience",
-        "certificates",
-        "contact",
-      ];
-      const scrollPosition = window.scrollY + 300;
+    const onScroll = () => {
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setScrolled(window.scrollY > 30);
 
-      for (const section of sections) {
-        const element = document.getElementById(section);
-        if (element) {
-          const offsetTop = element.offsetTop;
-          const offsetHeight = element.offsetHeight;
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
-            setActiveSection(section);
+          const sections = [
+            "home",
+            "about",
+            "skills",
+            "projects",
+            "experience",
+            "certificates",
+            "contact",
+          ];
+          const scrollPosition = window.scrollY + 300;
+
+          for (const section of sections) {
+            const element = document.getElementById(section);
+            if (element) {
+              const offsetTop = element.offsetTop;
+              const offsetHeight = element.offsetHeight;
+              if (
+                scrollPosition >= offsetTop &&
+                scrollPosition < offsetTop + offsetHeight
+              ) {
+                setActiveSection(section);
+              }
+            }
           }
-        }
+          ticking = false;
+        });
+        ticking = true;
       }
     };
 
-    window.addEventListener("scroll", handleScroll);
-    window.addEventListener("scroll", handleScrollSpy);
-    return () => {
-      window.removeEventListener("scroll", handleScroll);
-      window.removeEventListener("scroll", handleScrollSpy);
-    };
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
   const handleNavClick = (

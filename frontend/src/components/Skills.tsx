@@ -84,12 +84,12 @@ export default function Skills({ skills }: { skills: Skill[] }) {
           {filteredSkills.map((skill, index) => (
             <div
               key={index}
-              className={`transition-all duration-700 ease-out ${
+              className={`will-change-transform transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
                 isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-10"
+                  ? "opacity-100 translate-y-0 scale-100 blur-0"
+                  : "opacity-0 translate-y-12 scale-95 blur-md"
               }`}
-              style={{ transitionDelay: `${index * 30}ms` }}
+              style={{ transitionDelay: `${index * 40}ms` }}
             >
               <div
                 className={`group relative flex items-center gap-3 px-6 py-4 rounded-2xl bg-slate-900/40 backdrop-blur-md border border-slate-700/50 transition-all duration-300 cursor-pointer hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(0,0,0,0.3)] ${skill.borderClass} ${skill.bgClass}`}

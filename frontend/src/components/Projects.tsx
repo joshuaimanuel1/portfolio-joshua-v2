@@ -1,4 +1,3 @@
-// frontend/src/components/Projects.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -182,12 +181,12 @@ export default function Projects({ projects }: { projects: Project[] }) {
             <div
               key={project.id}
               onClick={() => setSelectedProject(project)}
-              className={`group relative bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 hover:border-blue-500/50 transition-all duration-700 hover:-translate-y-2 cursor-pointer flex flex-col h-full transform ${
+              className={`group relative bg-slate-900 rounded-2xl overflow-hidden border border-slate-800 hover:border-blue-500/50 cursor-pointer flex flex-col h-full transform will-change-transform transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] hover:-translate-y-2 ${
                 isVisible
-                  ? "opacity-100 translate-y-0"
-                  : "opacity-0 translate-y-20"
+                  ? "opacity-100 translate-y-0 scale-100 blur-0"
+                  : "opacity-0 translate-y-16 scale-95 blur-[10px]"
               }`}
-              style={{ transitionDelay: `${index * 100}ms` }}
+              style={{ transitionDelay: `${index * 150}ms` }}
             >
               <div className="aspect-video overflow-hidden relative">
                 <img

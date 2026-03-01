@@ -10,12 +10,15 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { PersonalInfo } from "../types";
+import { useScrollReveal } from "../hooks/useScrollReveal";
 
 export default function Contact({
   personalInfo,
 }: {
   personalInfo: PersonalInfo;
 }) {
+  const { ref, isVisible } = useScrollReveal(0.2);
+
   return (
     <section
       id="contact"
@@ -23,7 +26,15 @@ export default function Contact({
     >
       <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[30rem] h-[30rem] bg-blue-900/10 rounded-full blur-[120px] pointer-events-none"></div>
 
-      <div className="flex-1 flex flex-col justify-center w-full max-w-4xl mx-auto px-6 lg:px-8 relative z-10">
+      <div
+        // FIX ERROR TS: Kita beritahu TypeScript bahwa ref ini khusus untuk div
+        ref={ref as React.RefObject<HTMLDivElement>}
+        className={`flex-1 flex flex-col justify-center w-full max-w-4xl mx-auto px-6 lg:px-8 relative z-10 will-change-transform transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] ${
+          isVisible
+            ? "opacity-100 translate-y-0 scale-100 blur-0"
+            : "opacity-0 translate-y-16 scale-95 blur-md"
+        }`}
+      >
         <div className="bg-slate-900/40 border border-slate-800/60 backdrop-blur-xl rounded-3xl p-10 md:p-16 shadow-2xl flex flex-col items-center text-center transform transition-all duration-500 hover:border-slate-700/60">
           <h2 className="text-3xl md:text-5xl font-bold text-white mb-5 tracking-tight">
             Let's Work Together.
@@ -44,7 +55,13 @@ export default function Contact({
         </div>
       </div>
 
-      <div className="w-full max-w-4xl mx-auto px-6 lg:px-8 relative z-10 mt-12">
+      <div
+        className={`w-full max-w-4xl mx-auto px-6 lg:px-8 relative z-10 mt-12 will-change-transform transition-all duration-1000 ease-[cubic-bezier(0.22,1,0.36,1)] delay-300 ${
+          isVisible
+            ? "opacity-100 translate-y-0 blur-0"
+            : "opacity-0 translate-y-10 blur-sm"
+        }`}
+      >
         <div className="flex flex-col md:flex-row justify-between items-center gap-6 border-t border-slate-800/50 pt-8">
           <div className="flex items-center gap-3 px-4 py-2.5 bg-slate-900/60 border border-slate-800/80 rounded-full select-none cursor-default">
             <div className="relative flex items-center justify-center w-10 h-10 bg-emerald-500/20 rounded-full text-emerald-400 shrink-0">
