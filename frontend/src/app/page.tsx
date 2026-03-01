@@ -1,4 +1,3 @@
-// frontend/src/app/page.tsx
 import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import About from "../components/About";
@@ -20,7 +19,9 @@ import {
 
 export default function Home() {
   return (
-    <main className="bg-slate-950 min-h-screen text-slate-200 selection:bg-blue-500 selection:text-white font-sans overflow-x-hidden">
+    // PERUBAHAN KRUSIAL: overflow-x-hidden diganti menjadi overflow-clip
+    // agar efek Sticky & Curtain Reveal di Hero bisa berfungsi 100% mulus!
+    <main className="bg-slate-950 min-h-screen text-slate-200 selection:bg-blue-500 selection:text-white font-sans overflow-clip relative">
       <Navbar />
       <Hero personalInfo={personalInfo} />
       <About personalInfo={personalInfo} />

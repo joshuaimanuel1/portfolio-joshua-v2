@@ -1,4 +1,3 @@
-// frontend/src/components/Navbar.tsx
 "use client";
 
 import React, { useState, useEffect } from "react";
@@ -53,8 +52,17 @@ export default function Navbar() {
   ) => {
     e.preventDefault();
     const targetId = href.replace("#", "");
-    const element = document.getElementById(targetId);
 
+    if (targetId === "home") {
+      window.scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+      setIsOpen(false);
+      return;
+    }
+
+    const element = document.getElementById(targetId);
     if (element) {
       window.scrollTo({
         top: element.offsetTop,
@@ -177,14 +185,13 @@ export default function Navbar() {
         }`}
       >
         <div className="flex flex-col h-full relative overflow-hidden">
-          {/* EFEK GLOW BIRU PREMIUM DI KEMBALIKAN */}
           <div className="absolute top-0 right-0 w-64 h-64 bg-blue-500/10 rounded-full blur-[80px] -z-10 pointer-events-none"></div>
 
           <div className="flex items-center justify-between p-6 border-b border-white/5">
             <span className="font-bold text-xl text-white">Navigation</span>
             <button
               onClick={() => setIsOpen(false)}
-              className="p-2 text-gray-400 hover:text-white"
+              className="p-2 text-gray-400 hover:text-white transition-colors"
             >
               <X className="w-6 h-6" />
             </button>
@@ -208,22 +215,32 @@ export default function Navbar() {
               >
                 <span className="text-lg font-medium">{link.name}</span>
                 <ChevronRight
-                  className={`w-5 h-5 ${
-                    activeSection === link.id ? "text-blue-400" : ""
+                  className={`w-5 h-5 transition-transform ${
+                    activeSection === link.id
+                      ? "text-blue-400"
+                      : "group-hover:translate-x-1"
                   }`}
                 />
               </a>
             ))}
           </div>
 
-          {/* TOMBOL LET'S WORK TOGETHER DI KEMBALIKAN */}
-          <div className="p-6 border-t border-white/5 bg-black/20">
+          <div className="p-6 mt-auto pb-8 w-full">
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, "#contact")}
-              className="flex items-center justify-center w-full py-4 rounded-xl text-lg font-bold bg-gradient-to-r from-blue-600 to-purple-600 text-white shadow-[0_0_20px_rgba(37,99,235,0.3)] active:scale-[0.98] transition-all duration-300"
+              className="group relative flex w-full h-14 items-center justify-center overflow-hidden rounded-2xl p-[1.5px] active:scale-95 transition-all duration-300 shadow-[0_0_30px_rgba(59,130,246,0.2)]"
             >
-              Let's Work Together
+              <span className="absolute inset-[-1000%] animate-[spin_4s_linear_infinite] bg-[conic-gradient(from_90deg_at_50%_50%,#0f172a_0%,#3b82f6_50%,#ec4899_100%)]" />
+
+              <div className="relative flex h-full w-full items-center justify-center gap-2 rounded-2xl bg-slate-950/90 backdrop-blur-xl transition-colors group-active:bg-slate-900 z-10">
+                <span className="font-bold text-white tracking-wide">
+                  Let's Work Together
+                </span>
+                <div className="bg-white/5 p-1.5 rounded-full group-active:bg-blue-500/20 transition-colors">
+                  <ArrowUpRight className="w-4 h-4 text-blue-400 transition-transform group-active:translate-x-[1px] group-active:-translate-y-[1px]" />
+                </div>
+              </div>
             </a>
           </div>
         </div>

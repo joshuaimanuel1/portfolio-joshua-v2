@@ -194,11 +194,32 @@ const LeoConstellation = () => {
 
 const GlobalGreeting = () => {
   const greetings = [
-    "Halo", "Bonjour", "Hola", "こんにちは", "안녕하세요",
-    "Hello", "Ciao", "Hallo", "你好", "Olá", "مرحباً",
-    "नमस्ते", "Привет", "Merhaba", "สวัสดี", "Xin chào",
-    "Hallo", "שלום", "Hej", "Cześć", "Привіт", "হ্যালো",
-    "سلام", "Hai", "Kamusta", "Habari",
+    "Halo",
+    "Bonjour",
+    "Hola",
+    "こんにちは",
+    "안녕하세요",
+    "Hello",
+    "Ciao",
+    "Hallo",
+    "你好",
+    "Olá",
+    "مرحباً",
+    "नमस्ते",
+    "Привет",
+    "Merhaba",
+    "สวัสดี",
+    "Xin chào",
+    "Hallo",
+    "שלום",
+    "Hej",
+    "Cześć",
+    "Привіт",
+    "হ্যালো",
+    "سلام",
+    "Hai",
+    "Kamusta",
+    "Habari",
   ];
 
   const [text, setText] = useState("");
@@ -256,12 +277,32 @@ const GlobalGreeting = () => {
 };
 
 export default function Hero({ personalInfo }: { personalInfo: PersonalInfo }) {
-  const [offsetY, setOffsetY] = useState(0);
+  const arrowRef = useRef<HTMLDivElement>(null);
+  const contentRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
+    let ticking = false;
+
     const handleScroll = () => {
-      setOffsetY(window.scrollY);
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          const offsetY = window.scrollY;
+
+          if (contentRef.current) {
+            contentRef.current.style.transform = `translate3d(0, -${offsetY * 0.4}px, 0)`;
+            contentRef.current.style.opacity = `${Math.max(1 - offsetY / 600, 0)}`;
+          }
+
+          if (arrowRef.current) {
+            arrowRef.current.style.opacity = `${Math.max(1 - offsetY / 150, 0)}`;
+          }
+
+          ticking = false;
+        });
+        ticking = true;
+      }
     };
+
     window.addEventListener("scroll", handleScroll, { passive: true });
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
@@ -274,24 +315,21 @@ export default function Hero({ personalInfo }: { personalInfo: PersonalInfo }) {
   return (
     <section
       id="home"
-      className="sticky top-0 z-0 min-h-screen flex items-center justify-center overflow-hidden bg-slate-950 text-white"
+      className="sticky top-0 z-0 h-[100svh] w-full flex items-center justify-center overflow-hidden bg-slate-950 text-white"
     >
       <StarlightBackground />
 
+      <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
+        <div className="absolute -top-20 -left-20 w-96 h-96 bg-blue-900/10 rounded-full blur-[100px] animate-pulse"></div>
+        <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-900/10 rounded-full blur-[100px] animate-pulse delay-1000"></div>
+      </div>
+
       <div
-        className="absolute inset-0 w-full h-full pointer-events-none flex flex-col justify-center items-center"
-        style={{
-          transform: `translateY(-${offsetY * 0.4}px)`,
-          opacity: Math.max(1 - offsetY / 700, 0),
-        }}
+        ref={contentRef}
+        className="absolute inset-0 w-full h-full flex flex-col justify-center items-center pointer-events-none will-change-transform"
       >
         <LeoConstellation />
         <GlobalGreeting />
-
-        <div className="absolute top-0 left-0 w-full h-full overflow-hidden z-0 pointer-events-none">
-          <div className="absolute -top-20 -left-20 w-96 h-96 bg-blue-900/10 rounded-full blur-[100px] animate-pulse"></div>
-          <div className="absolute bottom-0 right-0 w-96 h-96 bg-purple-900/10 rounded-full blur-[100px] animate-pulse delay-1000"></div>
-        </div>
 
         <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center flex flex-col items-center pointer-events-auto">
           <div className="inline-block mb-3 px-4 py-1 rounded-full border border-blue-500/30 bg-blue-950/30 backdrop-blur-sm text-blue-300 text-xs sm:text-sm font-semibold tracking-widest animate-fade-in-up uppercase">
@@ -344,8 +382,8 @@ export default function Hero({ personalInfo }: { personalInfo: PersonalInfo }) {
       </div>
 
       <div
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-slate-500 z-10 cursor-pointer pointer-events-auto"
-        style={{ opacity: Math.max(1 - offsetY / 200, 0) }}
+        ref={arrowRef}
+        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-slate-500 z-10 cursor-pointer pointer-events-auto will-change-transform"
         onClick={handleScrollDown}
       >
         <ChevronDown className="w-8 h-8 hover:text-white transition-colors" />

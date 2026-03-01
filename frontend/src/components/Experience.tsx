@@ -44,7 +44,7 @@ export default function Experience({
       >
         <div className="mb-16 text-center md:text-left">
           <h2 className="text-3xl md:text-4xl font-bold text-white mb-4 flex items-center justify-center md:justify-start gap-3">
-            <Briefcase className="text-blue-500" /> Experience & Organizations
+            Experience & Organizations
           </h2>
           <p className="text-gray-400 max-w-2xl mx-auto md:mx-0">
             Leadership journey and active contributions beyond the classroom.
