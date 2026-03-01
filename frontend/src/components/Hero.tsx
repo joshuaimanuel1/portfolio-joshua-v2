@@ -381,12 +381,25 @@ export default function Hero({ personalInfo }: { personalInfo: PersonalInfo }) {
         </div>
       </div>
 
+      {/* SCROLL INDICATOR */}
       <div
         ref={arrowRef}
-        className="absolute bottom-[5%] md:bottom-10 left-0 right-0 mx-auto w-fit flex justify-center animate-bounce text-slate-500 z-10 cursor-pointer pointer-events-auto will-change-transform"
         onClick={handleScrollDown}
+        className="absolute bottom-8 left-0 right-0 flex justify-center z-10 cursor-pointer"
       >
-        <ChevronDown className="w-8 h-8 hover:text-white transition-colors" />
+        {/* DESKTOP – Bold Small Mouse */}
+        <div className="hidden md:flex items-center justify-center">
+          <div className="w-[14px] h-[22px] border-[1.8px] border-white rounded-full flex justify-center items-start">
+            <div className="w-[2px] h-[4px] bg-white rounded-full mt-[5px] animate-scroll-dot" />
+          </div>
+        </div>
+
+        {/* MOBILE – Bold Finger */}
+        <div className="flex md:hidden items-center justify-center">
+          <div className="w-[14px] h-[22px] border-[1.8px] border-white rounded-full flex justify-center items-start">
+            <div className="w-[3px] h-[3px] bg-white rounded-full mt-[5px] animate-finger-dot" />
+          </div>
+        </div>
       </div>
     </section>
   );
