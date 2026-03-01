@@ -383,7 +383,7 @@ export default function Hero({ personalInfo }: { personalInfo: PersonalInfo }) {
 
       <div
         ref={arrowRef}
-        className="absolute bottom-10 left-1/2 transform -translate-x-1/2 animate-bounce text-slate-500 z-10 cursor-pointer pointer-events-auto will-change-transform"
+        className="absolute bottom-[5%] md:bottom-10 left-0 right-0 mx-auto w-fit flex justify-center animate-bounce text-slate-500 z-10 cursor-pointer pointer-events-auto will-change-transform"
         onClick={handleScrollDown}
       >
         <ChevronDown className="w-8 h-8 hover:text-white transition-colors" />
