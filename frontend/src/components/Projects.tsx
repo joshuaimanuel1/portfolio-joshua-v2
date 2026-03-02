@@ -26,7 +26,8 @@ const ProjectModal = ({
         onClick={onClose}
       ></div>
       <div className="relative w-full max-w-5xl max-h-[90vh] bg-slate-900 rounded-2xl border border-slate-700 shadow-2xl flex flex-col overflow-hidden animate-[fadeInUp_0.4s_ease-out]">
-        <div className="flex justify-between items-center p-6 border-b border-slate-800 bg-slate-900/50">
+        {/* HEADER MODAL */}
+        <div className="flex justify-between items-center p-6 border-b border-slate-800 bg-slate-900/50 shrink-0">
           <div>
             <span className="text-blue-400 text-xs font-semibold tracking-wider uppercase mb-1 block">
               {project.category}
@@ -42,7 +43,13 @@ const ProjectModal = ({
             <X className="w-6 h-6" />
           </button>
         </div>
-        <div className="overflow-y-auto p-6 space-y-8 custom-scrollbar">
+
+        {/* BODY KONTEN (Area Scroll) */}
+        {/* PERBAIKAN: Tambahkan data-lenis-prevent="true" dan overscroll-contain */}
+        <div
+          className="flex-1 overflow-y-auto p-6 space-y-8 custom-scrollbar overscroll-contain"
+          data-lenis-prevent="true"
+        >
           <div className="rounded-xl overflow-hidden border border-slate-700 shadow-lg">
             <img
               src={project.imagePath}
