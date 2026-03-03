@@ -151,7 +151,7 @@ const PuzzleSkillCard = ({
 }) => {
   const isLeft = originalIndex % 2 === 0;
 
-  // Lebih subtle dan elegant
+  // Koordinat animasi scroll
   const startX = isLeft ? -(100 + originalIndex * 6) : 100 + originalIndex * 6;
   const startY = 80 + originalIndex * 4;
   const startRotate = isLeft ? -5 : 5;
@@ -172,53 +172,62 @@ const PuzzleSkillCard = ({
     [startRotate, 0, 0, -startRotate * 0.35],
   );
 
-  const opacity = useTransform(
+  const scrollOpacity = useTransform(
     progress,
     [0, 0.2, 0.45, 0.6, 0.8, 1],
     [0, 0.9, 1, 1, 0.9, 0],
   );
 
-  const scale = useTransform(progress, [0, 0.45, 0.6, 1], [0.94, 1, 1, 0.97]);
+  const scrollScale = useTransform(
+    progress,
+    [0, 0.45, 0.6, 1],
+    [0.94, 1, 1, 0.97],
+  );
 
+  // Sintaks komentar diperbaiki agar tidak memecahkan JSX
   return (
     <motion.div
       layout
-      initial={{ opacity: 0, scale: 0.94 }}
+      initial={{ opacity: 0, scale: 0.9 }}
       animate={{ opacity: 1, scale: 1 }}
       exit={{ opacity: 0, scale: 0.9, filter: "blur(4px)" }}
-      transition={{ duration: 0.3, ease: [0.25, 0.8, 0.25, 1] }}
-      style={{ x, y, rotate, opacity, scale }}
-      className="z-10 relative will-change-transform"
+      transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      className="z-10 relative"
     >
-      <div
-        className={`group relative flex items-center gap-3 px-6 py-4 rounded-2xl bg-slate-900/40 backdrop-blur-md border border-slate-700/50 transition-all duration-300 cursor-pointer hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(0,0,0,0.3)] ${skill.borderClass} ${skill.bgClass}`}
+      <motion.div
+        style={{ x, y, rotate, opacity: scrollOpacity, scale: scrollScale }}
+        className="will-change-transform"
       >
         <div
-          className={`p-2 rounded-lg bg-slate-800/50 group-hover:scale-110 transition-transform duration-300 ${skill.colorClass}`}
+          className={`group relative flex items-center gap-3 px-6 py-4 rounded-2xl bg-slate-900/40 backdrop-blur-md border border-slate-700/50 transition-all duration-300 cursor-pointer hover:-translate-y-2 hover:shadow-[0_0_30px_rgba(0,0,0,0.3)] ${skill.borderClass} ${skill.bgClass}`}
         >
-          {skill.imgSrc ? (
-            <img
-              src={skill.imgSrc}
-              alt={skill.name}
-              style={skill.style}
-              className="w-6 h-6 object-contain"
-            />
-          ) : (
-            getIcon(skill.iconName)
-          )}
-        </div>
+          <div
+            className={`p-2 rounded-lg bg-slate-800/50 group-hover:scale-110 transition-transform duration-300 ${skill.colorClass}`}
+          >
+            {skill.imgSrc ? (
+              <img
+                src={skill.imgSrc}
+                alt={skill.name}
+                style={skill.style}
+                className="w-6 h-6 object-contain"
+              />
+            ) : (
+              getIcon(skill.iconName)
+            )}
+          </div>
 
-        <div>
-          <h3 className="font-bold text-gray-200 group-hover:text-white transition-colors duration-300">
-            {skill.name}
-          </h3>
-          <span className="text-xs text-gray-500 group-hover:text-gray-300 transition-colors duration-300 font-mono">
-            {skill.category}
-          </span>
-        </div>
+          <div>
+            <h3 className="font-bold text-gray-200 group-hover:text-white transition-colors duration-300">
+              {skill.name}
+            </h3>
+            <span className="text-xs text-gray-500 group-hover:text-gray-300 transition-colors duration-300 font-mono">
+              {skill.category}
+            </span>
+          </div>
 
-        <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 bg-gradient-to-r from-white/10 to-transparent pointer-events-none"></div>
-      </div>
+          <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-20 transition-opacity duration-300 bg-gradient-to-r from-white/10 to-transparent pointer-events-none"></div>
+        </div>
+      </motion.div>
     </motion.div>
   );
 };
@@ -294,7 +303,7 @@ export default function Skills({ skills }: { skills: Skill[] }) {
           layout
           className="flex flex-wrap justify-center gap-4 md:gap-6 min-h-[300px]"
         >
-          <AnimatePresence mode="popLayout">
+          <AnimatePresence>
             {filteredSkills.map((skill) => (
               <PuzzleSkillCard
                 key={skill.name}
