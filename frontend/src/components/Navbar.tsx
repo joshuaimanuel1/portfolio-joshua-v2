@@ -110,11 +110,11 @@ export default function Navbar() {
             onClick={(e) => handleNavClick(e, "#home")}
           >
             <span
-              className={`font-bold tracking-tighter bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent transition-all duration-700 ${
+              className={`font-bold tracking-tighter text-white transition-all duration-700 ${
                 scrolled ? "text-xl" : "text-2xl"
               }`}
             >
-              Portofolio
+              Joiel
               <span className="text-white/50 group-hover:text-white transition-colors">
                 .
               </span>
