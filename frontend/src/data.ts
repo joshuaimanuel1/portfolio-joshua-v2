@@ -31,6 +31,26 @@ export const techStack: Skill[] = [
     bgClass: "hover:bg-yellow-400/10",
   },
   {
+    name: "C++",
+    category: "Languages",
+    iconName: "CppIcon",
+    imgSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/cplusplus/cplusplus-original.svg",
+    colorClass: "text-blue-600",
+    borderClass: "hover:border-blue-600/50",
+    bgClass: "hover:bg-blue-600/10",
+  },
+  {
+    name: "Java",
+    category: "Languages",
+    iconName: "JavaIcon",
+    imgSrc:
+      "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg",
+    colorClass: "text-red-500",
+    borderClass: "hover:border-red-500/50",
+    bgClass: "hover:bg-red-500/10",
+  },
+  {
     name: "HTML5",
     category: "Languages",
     iconName: "HtmlIcon",
@@ -198,6 +218,15 @@ export const techStack: Skill[] = [
     colorClass: "text-blue-500",
     borderClass: "hover:border-blue-500/50",
     bgClass: "hover:bg-blue-500/10",
+  },
+  {
+    name: "Mendix",
+    category: "Tools",
+    iconName: "Blocks",
+    imgSrc: "https://cdn.simpleicons.org/mendix/005C9E",
+    colorClass: "text-[#005C9E]",
+    borderClass: "hover:border-[#005C9E]/50",
+    bgClass: "hover:bg-[#005C9E]/10",
   },
   {
     name: "Postman",
