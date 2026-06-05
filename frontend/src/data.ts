@@ -223,10 +223,12 @@ export const techStack: Skill[] = [
     name: "Mendix",
     category: "Tools",
     iconName: "Blocks",
-    imgSrc: "https://cdn.simpleicons.org/mendix/005C9E",
-    colorClass: "text-[#005C9E]",
+    imgSrc:
+      "https://cdn.brandfetch.io/idXl6_NkrJ/w/400/h/400/theme/dark/icon.jpeg?c=1bxid64Mup7aczewSAYMX&t=1778360503820",
+    colorClass: "text-[#005C9E]", // Tetap mempertahankan warna glow biru khas Mendix
     borderClass: "hover:border-[#005C9E]/50",
     bgClass: "hover:bg-[#005C9E]/10",
+    style: { borderRadius: "20%" }, // Membulatkan sudut gambar JPEG agar terlihat lebih elegan
   },
   {
     name: "Postman",
